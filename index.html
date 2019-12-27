@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <script src="https://cesium.com/downloads/cesiumjs/releases/1.64/Build/Cesium/Cesium.js"></script>
+  <link href="https://cesium.com/downloads/cesiumjs/releases/1.64/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+</head>
+<body>
+  <div id="cesiumContainer" style="width: 100vh; height:100vh"></div>
+<script>
+// Grant CesiumJS access to your ion assets
+Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJlZWVkMTYzMy04MzdjLTRkNWUtOTkzZS01ZTk2MjU1YTRjOTQiLCJpZCI6MTk0OTQsInNjb3BlcyI6WyJhc3IiLCJnYyJdLCJpYXQiOjE1NzU2MTU3MDB9.HWCUjNOwZTSYdKAXHGD3CHwrlXAAmUgZaFIlq7QIxHM';
+
+var viewer = new Cesium.Viewer('cesiumContainer', {
+	vrButton: true
+});
+
+var tileset = viewer.scene.primitives.add(
+    new Cesium.Cesium3DTileset({
+        url: Cesium.IonResource.fromAssetId(63832),
+        //This tileset doesn't have a location, so we're using a modelMatrix to place it at 0, 0 instead of drawing at the center of the earth
+        modelMatrix: Cesium.Transforms.eastNorthUpToFixedFrame(Cesium.Cartesian3.fromDegrees(0, 0))
+    })
+);
+
+viewer.zoomTo(tileset)
+    .otherwise(function (error) {
+        console.log(error);
+    });
+</script>
+</body>
+</html>
